@@ -1,79 +1,135 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# **Experis Prueba Técnica | React Native FakeStore App**
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Esta aplicación es un ejemplo de uso de **React Native** con integración a la API de **FakeStore**. Permite realizar autenticación, listar productos y ver detalles de cada producto.
 
-## Step 1: Start the Metro Server
+## **Configuración Inicial**
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Sigue estos pasos para configurar y ejecutar el proyecto:
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### 1. **Renombrar archivo `.env.template` a `.env`:**  
+   En la raíz del proyecto, renombra el archivo `.env.template` a `.env` y asegúrate de que la variable `API_URL` esté configurada correctamente:
 
-```bash
-# using npm
-npm start
+   ```plaintext
+   API_URL=https://fakestoreapi.com
+   ```
 
-# OR using Yarn
-yarn start
-```
+### 2. **Instalar dependencias:**  
+   Ejecuta el siguiente comando en la raíz del proyecto para instalar las dependencias de **Node.js**:
 
-## Step 2: Start your Application
+   ```bash
+   npm install
+   ```
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+### 3. **Instalar dependencias de iOS (si trabajas en iOS):**  
+   Si estás trabajando con **iOS**, navega a la carpeta `ios` y ejecuta el siguiente comando para instalar las dependencias de **CocoaPods**:
 
-### For Android
+   ```bash
+   cd ios
+   pod install
+   cd ..
+   ```
 
-```bash
-# using npm
-npm run android
+### 4. **Ejecutar la aplicación:**  
+   Inicia el servidor de desarrollo y los simuladores ejecutando:
 
-# OR using Yarn
-yarn android
-```
+   ```bash
+   npm start
+   ```
 
-### For iOS
+---
 
-```bash
-# using npm
-npm run ios
+## **Especificaciones del Proyecto**
 
-# OR using Yarn
-yarn ios
-```
+### **Pantalla de Login**
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+La pantalla de login permite que el usuario ingrese su nombre de usuario y contraseña para autenticarse:
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- **Requisitos:**
+  - **Nombre de usuario:** Obligatorio y con un mínimo de 5 caracteres.
+  - **Contraseña:** Obligatoria y con un mínimo de 5 caracteres.
+  
+- **Proceso de autenticación:**
+  - El login se realiza contra la API de autenticación de FakeStore:  
+    `https://fakestoreapi.com/auth/login`.
+  
+- **En caso de éxito:**
+  - Guarda el **token** devuelto por la API.
+  - Redirige a la pantalla de lista de productos.
 
-## Step 3: Modifying your App
+- **En caso de error:**
+  - Muestra un mensaje de error adecuado.
 
-Now that you have successfully run the app, let's modify it.
+- **Restricción:**
+  - Si el usuario no está autenticado, será redirigido automáticamente a la pantalla de login.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+- **Tecnologías utilizadas:**
+  - **React Hook Form** para la validación y manejo de formularios de manera eficiente.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+  - **Usuario de prueba**:
+  - Puedes usar el siguiente usuario para probar el login:
+    - **Username**: `mor_2314`
+    - **Password**: `83r5^_`
+  
+  Si este usuario no funciona, por favor revisa el nombre de usuario y la contraseña en la web de la [FakeStore API](https://fakestoreapi.com/auth/login) para obtener credenciales válidas.
 
-## Congratulations! :tada:
+### **Pantalla de Lista de Productos**
 
-You've successfully run and modified your React Native App. :partying_face:
+ **Objetivo**: Mostrar una lista de productos obtenidos desde la API:  
+  `https://fakestoreapi.com/products`.
 
-### Now what?
+La pantalla de lista de productos muestra los productos obtenidos desde la API de FakeStore:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+- **Características de la lista de productos:**
+  - Cada producto muestra:
+    - **Imagen del producto.**
+    - **Nombre del producto.**
+    - **Precio del producto.**
+  - Los productos se cargan de manera eficiente y gestionan correctamente los estados de:
+    - **Carga**: Muestra un loader mientras se obtienen los datos.
+    - **Éxito**: Muestra la lista de productos.
+    - **Error**: Muestra un mensaje de error en caso de que la carga falle.
 
-# Troubleshooting
+- **Navegación:**
+  - Al hacer clic en un producto, el usuario será redirigido a la pantalla de detalles del producto.
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### **Pantalla de Detalles del Producto**
 
-# Learn More
+ **Objetivo**: Mostrar una lista de productos obtenidos desde la API:  
+  `https://fakestoreapi.com/products/id`.
 
-To learn more about React Native, take a look at the following resources:
+Al seleccionar un producto de la lista, se navega a una pantalla con los detalles completos del producto:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- **Detalles que se muestran:**
+  - **Imagen del producto.**
+  - **Nombre del producto.**
+  - **Descripción completa del producto.**
+  - **Precio del producto.**
+
+---
+
+## **Tecnologías Utilizadas**
+
+- **React Native:** Framework para la construcción de aplicaciones móviles multiplataforma.
+- **Zustand:** Para el manejo del estado global de la aplicación de forma eficiente.
+- **React Navigation:** Para la navegación entre pantallas.
+- **AsyncStorage**: Para almacenar el token de usuario de manera persistente.
+- **UI Kitten:** Biblioteca de componentes UI que ofrece un diseño atractivo y accesible.
+- **React Hook Form:** Para la gestión de formularios y validación de entradas de usuario de forma sencilla y eficiente.
+- **Axios:** Para realizar las solicitudes HTTP hacia las APIs de FakeStore.
+
+---
+
+## **Notas Adicionales**
+
+- Esta aplicación utiliza una API pública (`https://fakestoreapi.com`), por lo que puede experimentar cambios en los datos proporcionados.
+- El manejo de la autenticación y el estado global se realiza mediante **Zustand**, lo que permite una arquitectura sencilla y eficiente sin necesidad de Redux.
+- Asegúrate de tener las versiones correctas de las herramientas necesarias para el desarrollo en **React Native**, como Node.js y Xcode (para iOS) o Android Studio (para Android).
+
+---
+
+¡Disfruta desarrollando con **React Native**! 🚀
+
+Creado por: **Rodrigo Pavez Briones**
+
+Email: **ron.pavezb@gmail.com**
